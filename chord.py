@@ -4,15 +4,7 @@ class FingerTable:
 	def __init__(self, nodeID):
 		self.nodeID = nodeID
 		self.table = [None,None,None,None,None,None,None,None,None]
-		self.nodeTable = [None,None,None,None,None,None,None,None,None]
-		if nodeCount == 1:
-			for x in range (1,9):
-				self.table[x] = nodeID              #this makes the F.T. an array of the key n+2^i
-				self.nodeTable[x] = self            #this makes the F.T. an array of nodes (just itself currently)
-		else:
-			for x in range(1,9):
-				self.table[x] = nodeID+(2**(x-1))   #this makes the F.T. an array of the key n+2^i
-				self.nodeTable[x] = self            #this makes the F.T. an array of nodes (just itself currently)
+		self.nodeTable = [None,None,None,None,None,None,None,None,None] #set of nodes (or 'fingers') which refer to other points on the ring
 
 class Node:
 
@@ -23,16 +15,12 @@ class Node:
 		nodeList[nodeCount]=self
 
 		self.table=FingerTable(nodeID)
-		if nodeCount==1:     #if it's the first node in the network, set its successor and predecessor to itself
-			self.successor=self.table.table[1]
-			self.predecessor=self.table.table[1]	
-			self.successorNode = self.table.nodeTable[1]	
-			self.predecessorNode = self.table.nodeTable[1]
-		else:
-			self.successor=self.table.table[1]
-			self.predecessor=self.table.table[1]	
-			self.successorNode = self.table.nodeTable[1]	
-			self.predecessorNode = self.table.nodeTable[1]			
+
+		self.successor = None
+		self.predecessor = None
+		self.successorNode = None
+		self.predecessorNode = None
+
 
 	def printFingerTable(self):
 		print "|                         Successor of key at",self.nodeID,"+2^i          |"
@@ -53,15 +41,38 @@ def findSuccessor(node):
 def printNodeCount():
 	print "Node count = ", nodeCount
 
-#called in the Node class __init__ function, it passes the node
+#called in the Node class __	__init__ function, it passes the node
 def join(node):
 
 	if nodeCount == 1:
 		print "|This is the first node in the network.                       |"
+		for x in range (1,9):
+			node.table.table[x] = node.nodeID              #this makes the F.T. an array of the key n+2^i
+			node.table.nodeTable[x] = node            #this makes the F.T. an array of nodes (just itself since this is the first node)	
+
+			#need to set successor here
+
+			node.successor=node.table.table[1]
+			node.predecessor=node.table.table[1]	
+			node.successorNode = node.table.nodeTable[1]	
+			node.predecessorNode = node.table.nodeTable[1]
+
+
 		#pass
 	else:                               #join by giving it a random node in the topology. for beginning implementation we will continue to use the first node.		
+		for x in range(1,9):
+			node.table.table[x] = node.nodeID+(2**(x-1))   #this makes the F.T. an array of the key n+2^i
+			node.table.nodeTable[x] = node            #this makes the F.T. an array of nodes (just itself currently)
+			
+
+
+			node.successor=node.table.table[1]
+			node.predecessor=node.table.table[1]	
+			node.successorNode = node.table.nodeTable[1]	
+			node.predecessorNode = node.table.nodeTable[1]	
+
 		#implement join here
-		pass
+		#pass
 	
 	printAllFingerTables()
 	node.printNodeStats()
