@@ -19,8 +19,9 @@ class Node:
 	def __init__(self, nodeID):
 		global nodeCount
 		self.nodeID = nodeID
-		nodeList[nodeCount]=self
 		nodeCount=nodeCount+1
+		nodeList[nodeCount]=self
+
 		self.table=FingerTable(nodeID)
 		if nodeCount==1:     #if it's the first node in the network, set its successor and predecessor to itself
 			self.successor=self.table.table[1]
@@ -33,8 +34,6 @@ class Node:
 			self.successorNode = self.table.nodeTable[1]	
 			self.predecessorNode = self.table.nodeTable[1]			
 
-		#join(self) 
-
 	def printFingerTable(self):
 		print "|                         Successor of key at",self.nodeID,"+2^i          |"
 		print "|Finger Table at ", self.nodeID, ": " , self.table.table
@@ -46,6 +45,10 @@ class Node:
 		print "|Predecessor = ", self.predecessor,"                                            |"
 		print "|Successor NodeID = ", self.successorNode.nodeID, "                                       |"
 		print "______________________________________________________________|"
+
+def findSuccessor(node):
+	pass
+
 
 def printNodeCount():
 	print "Node count = ", nodeCount
@@ -64,7 +67,7 @@ def join(node):
 	node.printNodeStats()
 
 def printAllFingerTables():
-	for x in range(0,nodeCount):
+	for x in range(1,nodeCount):
 		nodeList[x].printFingerTable()
 		#need to implement correct print function, pulling from nodeList[node]
 
@@ -74,7 +77,7 @@ def rebuildFingerTables():
 #return the successor of the key
 def lookup(key):
 	#enter in a node by 'external mechanism'. in this case, we will generate a random number between 0 and node count - 1 and take that node
-	rndm = random.randint(0,nodeCount-1)
+	rndm = random.randint(1,nodeCount)
 	refNode = nodeList[rndm]
 	refNodeSuccessor = refNode.successor
 	print "The random number generated is ", rndm, ".  The successor of the node at this index is ", refNodeSuccessor
