@@ -32,18 +32,18 @@ class Node:
 		print "|Predecessor NodeID = ", self.predecessorNode.nodeID, "                                     |"
 		print "|Successor NodeID = ", self.successorNode.nodeID, "                                       |"
 
-	def isInRange(num1, num2):
+	def isInRange(self, num1, num2):
 		if self.nodeID>=num1 and self.nodeID<num2:
-			return true
+			return True
 		else:
-			return false
+			return False
 
 
 
 
 
 	#goal: pass the new incoming node into the function, return its successor
-	def findSuccessor(newNode):
+	def findSuccessor(self, newNode):
 	
 		#if newNode.isInRange(self.table.table[1], self.table.table[2]):
 
@@ -54,19 +54,21 @@ class Node:
 
 		pass
 
-	def findPredecessor(newNode):
+	def findPredecessor(self, newNode):
 		pass
 
-	def findClosestPrecedingFinger(newNode):
+	def findClosestPrecedingFinger(self, newNode):
 		
-		
+		for x in range (8,1,-1):
+			if newNode.isInRange(self.table.table[x-1],self.table.table[x]):
+				return self.table.nodeTable[x-1]
 
 
 
 
 
 
-		pass
+		#pass
 
 def printNodeCount():
 	print "Node count = ", nodeCount
@@ -79,12 +81,12 @@ def join(node):
 
 	if nodeCount == 1:
 		print "|          This is the first node in the network.             |"
-		for x in range (1,9):
+		for x in range (1,8):
 			node.table.nodeTable[x] = node      #this makes the F.T. an array of nodes (just itself since this is the first node)		
 		node.successorNode = node.table.nodeTable[1]
 		node.predecessorNode = node.table.nodeTable[1]
 	else: #join by giving it a random node in the topology. for beginning implementation we will continue to use the first node.		
-		for x in range(1,9):
+		for x in range(1,8):
 			#to change
 			
 			#initializeFingerTable(node)
@@ -107,7 +109,6 @@ def join(node):
 def printAllFingerTables():
 	for x in range(1,nodeCount):
 		nodeList[x].printKeyTable()
-		#need to implement correct print function, pulling from nodeList[node]
 
 #this is where the finger table is rebuilt after a node joins the ring
 #want to do something as many times as there are nodes (nodeCount)
@@ -137,6 +138,11 @@ def lookup(key):
 nodeList=[None,None,None,None,None]
 nodeCount=0
 
+#print "*****************Python Testing********************"
+#for x in range (8,1,-1):
+#	print x
+#print "***************************************************"
+
 print "***************************************************"
 print ""
 print "______________________________________________________________"
@@ -145,6 +151,9 @@ testNode = Node(5)
 join(testNode)
 
 testNode2= Node(6)
+
+fingerNode = testNode.findClosestPrecedingFinger(testNode2)
+
 join(testNode2)
 lookup(1)
 
@@ -152,3 +161,6 @@ print ""
 print ""
 print "***************************************************"
 
+print "******************Moar Testing*********************"
+print fingerNode.nodeID
+print "***************************************************"
