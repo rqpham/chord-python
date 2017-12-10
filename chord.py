@@ -32,20 +32,47 @@ class Node:
 		print "|Predecessor NodeID = ", self.predecessorNode.nodeID, "                                     |"
 		print "|Successor NodeID = ", self.successorNode.nodeID, "                                       |"
 
+	def isInRange(num1, num2):
+		if self.nodeID>=num1 and self.nodeID<num2:
+			return true
+		else:
+			return false
 
-#goal: pass the new incoming node into the function, return its successor
-def findSuccessor(node):
+
+
+
+
+	#goal: pass the new incoming node into the function, return its successor
+	def findSuccessor(newNode):
 	
-if node.nodeID
+		#if newNode.isInRange(self.table.table[1], self.table.table[2]):
 
 
 
 
 
-	#pass
+
+		pass
+
+	def findPredecessor(newNode):
+		pass
+
+	def findClosestPrecedingFinger(newNode):
+		
+		
+
+
+
+
+
+
+		pass
 
 def printNodeCount():
 	print "Node count = ", nodeCount
+
+def initializeFingerTable(node):
+	pass
 
 #called in the Node class __	__init__ function, it passes the node
 def join(node):
@@ -60,6 +87,9 @@ def join(node):
 		for x in range(1,9):
 			#to change
 			
+			#initializeFingerTable(node)
+
+
 			node.table.nodeTable[x] = node            #this makes the F.T. an array of nodes (just itself currently)
 			node.successorNode = node.table.nodeTable[1]	
 			node.predecessorNode = node.table.nodeTable[1]	
