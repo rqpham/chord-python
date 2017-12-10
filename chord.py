@@ -38,37 +38,21 @@ class Node:
 		else:
 			return False
 
-
-
-
-
 	#goal: pass the new incoming node into the function, return its successor
 	def findSuccessor(self, newNode):
 	
 		#if newNode.isInRange(self.table.table[1], self.table.table[2]):
-
-
-
-
-
 
 		pass
 
 	def findPredecessor(self, newNode):
 		pass
 
+	#passing in a new entering node, the closest preceding finger in the existing node's finger table is returned 
 	def findClosestPrecedingFinger(self, newNode):
-		
 		for x in range (8,1,-1):
 			if newNode.isInRange(self.table.table[x-1],self.table.table[x]):
 				return self.table.nodeTable[x-1]
-
-
-
-
-
-
-		#pass
 
 def printNodeCount():
 	print "Node count = ", nodeCount
@@ -91,15 +75,10 @@ def join(node):
 			
 			#initializeFingerTable(node)
 
-
 			node.table.nodeTable[x] = node            #this makes the F.T. an array of nodes (just itself currently)
 			node.successorNode = node.table.nodeTable[1]	
 			node.predecessorNode = node.table.nodeTable[1]	
 
-
-
-
-			#pass
 		#implement join here
 
 	
