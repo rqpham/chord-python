@@ -26,7 +26,6 @@ class Node:
 		print "|Key Table at ", self.nodeID, ": " , self.table.table 
 		print "|                     ^^  Successor of key at",self.nodeID,"+2^i  ^^      |"  
 
-	
 	def printNodeStats(self):
 		print "|NodeID = ", self.nodeID ,"                                                 |"
 		print "|Predecessor NodeID = ", self.predecessorNode.nodeID, "                                     |"
@@ -59,8 +58,7 @@ class Node:
 		for x in range (8,2,-1):
 			if newNode.isInRange(self.table.table[x-1],self.table.table[x]):
 				return self.table.table[x-1]
-			else: 
-				return self.table.table[x]
+		return self.table.table[x]
 
 def printNodeCount():
 	print "Node count = ", nodeCount
@@ -136,7 +134,7 @@ print "______________________________________________________________"
 testNode = Node(5)
 join(testNode)
 
-testNode2= Node(140)
+testNode2= Node(100)
 
 
 
