@@ -55,9 +55,12 @@ class Node:
 
 	#passing in a new entering node, the closest preceding finger in the existing node's finger table is returned 
 	def findClosestPrecedingFinger(self, newNode):
-		for x in range (8,1,-1):
+		print "newNode id = ", newNode.nodeID
+		for x in range (8,2,-1):
 			if newNode.isInRange(self.table.table[x-1],self.table.table[x]):
-				return self.table.nodeTable[x-1]
+				return self.table.table[x-1]
+			else: 
+				return self.table.table[x]
 
 def printNodeCount():
 	print "Node count = ", nodeCount
@@ -133,9 +136,9 @@ print "______________________________________________________________"
 testNode = Node(5)
 join(testNode)
 
-testNode2= Node(6)
+testNode2= Node(140)
 
-fingerNode = testNode.findClosestPrecedingFinger(testNode2)
+
 
 join(testNode2)
 lookup(1)
@@ -145,5 +148,6 @@ print ""
 print "***************************************************"
 
 print "******************Moar Testing*********************"
-print fingerNode.nodeID
+finger = testNode.findClosestPrecedingFinger(testNode2)
+print "The closest preceding finger to testNode2 is ", finger
 print "***************************************************"
