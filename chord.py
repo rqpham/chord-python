@@ -24,13 +24,14 @@ class Node:
 	def printKeyTable(self):
 
 		print "|Key Table at ", self.nodeID, ": " , self.table.table 
-		print "|                         Successor of key at",self.nodeID,"+2^i          |"  
-		print "______________________________________________________________|"
+		print "|                     ^^  Successor of key at",self.nodeID,"+2^i  ^^      |"  
+
 	
 	def printNodeStats(self):
 		print "|NodeID = ", self.nodeID ,"                                                 |"
 		print "|Predecessor NodeID = ", self.predecessorNode.nodeID, "                                     |"
 		print "|Successor NodeID = ", self.successorNode.nodeID, "                                       |"
+		print "______________________________________________________________|"
 
 	def isInRange(self, num1, num2):
 		if self.nodeID>=num1 and self.nodeID<num2:
@@ -40,13 +41,17 @@ class Node:
 
 	#goal: pass the new incoming node into the function, return its successor
 	def findSuccessor(self, newNode):
-	
+		
 		#if newNode.isInRange(self.table.table[1], self.table.table[2]):
 
 		pass
 
 	def findPredecessor(self, newNode):
-		pass
+		node = newNode
+
+		
+		return node
+		#pass
 
 	#passing in a new entering node, the closest preceding finger in the existing node's finger table is returned 
 	def findClosestPrecedingFinger(self, newNode):
@@ -82,7 +87,8 @@ def join(node):
 		#implement join here
 
 	
-	printAllFingerTables()
+	#printAllFingerTables()
+	node.printKeyTable()
 	node.printNodeStats()
 
 def printAllFingerTables():
@@ -96,8 +102,6 @@ def rebuildFingerTables():
 
 def stabilize():
 	pass
-
-
 
 #return the successor of the key
 def lookup(key):
