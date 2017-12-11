@@ -40,15 +40,21 @@ class Node:
 
 	#goal: pass the new incoming node into the function, return its successor
 	def findSuccessor(self, newNode):
-		
+		node = self.findPredecessor(newNode)
+		return node.successorNode
 		#if newNode.isInRange(self.table.table[1], self.table.table[2]):
 
-		pass
+		#pass
 
+	#pass in the new node, return its predecessor
 	def findPredecessor(self, newNode):
 		node = newNode
-
-		
+		if self.successorNode==self.table.nodeTable[1]:
+			newNode.predecessorNode=self
+			return self
+		else:
+			while(not newNode.isInRange(node.nodeID, node.successorNode.nodeID)):
+				node = self.findClosestPrecedingFinger(newNode)
 		return node
 		#pass
 
@@ -57,8 +63,12 @@ class Node:
 		print "newNode id = ", newNode.nodeID
 		for x in range (8,2,-1):
 			if newNode.isInRange(self.table.table[x-1],self.table.table[x]):
-				return self.table.table[x-1]
-		return self.table.table[x]
+				print "The closest preceding finger is ", self.table.table[x-1]
+				return self.table.nodeTable[x-1]
+				#return self.table.table[x-1]
+		#return self.table.table[x]
+		print "The closes preceding finger is ", self.table.table[x]
+		return self.table.nodeTable[x]
 
 def printNodeCount():
 	print "Node count = ", nodeCount
@@ -82,8 +92,8 @@ def join(node):
 			#initializeFingerTable(node)
 
 			node.table.nodeTable[x] = node            #this makes the F.T. an array of nodes (just itself currently)
-			node.successorNode = node.table.nodeTable[1]	
-			node.predecessorNode = node.table.nodeTable[1]	
+		node.successorNode = lookup().findSuccessor(node)	  #****incorrect*****
+		node.predecessorNode = lookup().findPredecessor(node)	 #correct
 
 		#implement join here
 
@@ -105,18 +115,20 @@ def stabilize():
 	pass
 
 #return the successor of the key
-def lookup(key):
+def lookup():
 	#enter in a node by 'external mechanism'. in this case, we will generate a random number between 0 and node count - 1 and take that node
 	if nodeCount==1: 
 		rndm = random.randint(1,nodeCount) 
 		refNode = nodeList[rndm]
-		refNodeSuccessor = refNode.successorNode.nodeID
-		print "The random number generated is ", rndm, ".  The successor of the node at this index is ", refNodeSuccessor
+		return refNode
+		#refNodeSuccessor = refNode.successorNode.nodeID
+		#print "The random number generated is ", rndm, ".  The successor of the node at this index is ", refNodeSuccessor
 	else:
 		rndm = random.randint(1,nodeCount-1) #want to exclude the last added node 
 		refNode = nodeList[rndm]
-		refNodeSuccessor = refNode.successorNode.nodeID
-		print "The random number generated is ", rndm, ".  The successor of the node at this index is ", refNodeSuccessor	
+		return refNode
+		r#efNodeSuccessor = refNode.successorNode.nodeID
+		#print "The random number generated is ", rndm, ".  The successor of the node at this index is ", refNodeSuccessor	
 
 #some global stuff
 nodeList=[None,None,None,None,None]
@@ -133,13 +145,11 @@ print "______________________________________________________________"
 
 testNode = Node(5)
 join(testNode)
+printNodeCount()
 
 testNode2= Node(100)
-
-
-
 join(testNode2)
-lookup(1)
+#lookup(1)
 
 print ""
 print ""
@@ -147,5 +157,7 @@ print "***************************************************"
 
 print "******************Moar Testing*********************"
 finger = testNode.findClosestPrecedingFinger(testNode2)
-print "The closest preceding finger to testNode2 is ", finger
+#print "The closest preceding finger to testNode2 is ", finger
+pred = testNode.findPredecessor(testNode2)
+print "The predecessor of testNode2 with id ", testNode2.nodeID, " is node at ", pred.nodeID
 print "***************************************************"
